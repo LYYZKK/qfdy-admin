@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta
+      name="viewport"
+      content="width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no"
+    />
+    <title>Wise CRM 呼叫中心运营平台</title>
+    <link rel="icon" href="<%= BASE_URL %>logo.png" />
+
+    <!-- require cdn assets css -->
+    <% for (var i in htmlWebpackPlugin.options.cdn && htmlWebpackPlugin.options.cdn.css) { %>
+    <link rel="stylesheet" href="<%= htmlWebpackPlugin.options.cdn.css[i] %>" />
+    <% } %>
+
+    <style>
+      html,
+      body,
+      #app {
+        height: 100%;
+        margin: 0px;
+        padding: 0px;
+      }
+      .chromeframe {
+        margin: 0.2em 0;
+        background: #ccc;
+        color: #000;
+        padding: 0.2em 0;
+      }
+      @-webkit-keyframes spin {
+        0% {
+          -webkit-transform: rotate(0deg);
+          /* Chrome, Opera 15+, Safari 3.1+ */
+          -ms-transform: rotate(0deg);
+          /* IE 9 */
+          transform: rotate(0deg);
+          /* Firefox 16+, IE 10+, Opera */
+        }
+        100% {
+          -webkit-transform: rotate(360deg);
+          /* Chrome, Opera 15+, Safari 3.1+ */
+          -ms-transform: rotate(360deg);
+          /* IE 9 */
+          transform: rotate(360deg);
+          /* Firefox 16+, IE 10+, Opera */
+        }
+      }
+      @keyframes spin {
+        0% {
+          -webkit-transform: rotate(0deg);
+          /* Chrome, Opera 15+, Safari 3.1+ */
+          -ms-transform: rotate(0deg);
+          /* IE 9 */
+          transform: rotate(0deg);
+          /* Firefox 16+, IE 10+, Opera */
+        }
+        100% {
+          -webkit-transform: rotate(360deg);
+          /* Chrome, Opera 15+, Safari 3.1+ */
+          -ms-transform: rotate(360deg);
+          /* IE 9 */
+          transform: rotate(360deg);
+          /* Firefox 16+, IE 10+, Opera */
+        }
+      }
+      /* 滚动条优化 start */
+      ::-webkit-scrollbar {
+        width: 8px;
+        height: 8px;
+      }
+      ::-webkit-scrollbar-track {
+        background: #f6f6f6;
+        border-radius: 2px;
+      }
+      ::-webkit-scrollbar-thumb {
+        background: #cdcdcd;
+        border-radius: 2px;
+      }
+      ::-webkit-scrollbar-thumb:hover {
+        background: #747474;
+      }
+      ::-webkit-scrollbar-corner {
+        background: #f6f6f6;
+      }
+      /* 滚动条优化 end */
+    </style>
+    <script>
+      // 禁止 IOS 设备弹出软键盘时界面放大.
+      document.documentElement.addEventListener(
+        'touchstart',
+        function(event) {
+          if (event.touches.length > 1) {
+            event.preventDefault()
+          }
+        },
+        false
+      )
+    </script>
+  </head>
+
+  <body>
+    <div id="app"></div>
+
+    <!-- require cdn assets js -->
+    <% for (var i in htmlWebpackPlugin.options.cdn && htmlWebpackPlugin.options.cdn.js) { %>
+    <script type="text/javascript" src="<%= htmlWebpackPlugin.options.cdn.js[i] %>"></script>
+    <% } %>
+  </body>
+</html>

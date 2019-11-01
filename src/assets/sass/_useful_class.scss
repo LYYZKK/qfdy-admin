@@ -1,0 +1,36 @@
+.f-l {
+  float: left !important;
+}
+
+.f-r {
+  float: right !important;
+}
+
+.inline-block-display {
+  display: inline-block !important;
+}
+
+.m-a {
+  margin: auto !important;
+}
+
+.o-a {
+  overflow: auth;
+}
+
+.center {
+  text-align: center !important;
+}
+
+// border-radius begin.
+$br-size: 1;
+
+@while $br-size <=20 {
+  .br-#{$br-size} {
+    border-radius: 1px * $br-size !important;
+  }
+
+  $br-size: $br-size+1;
+}
+
+// border-radius begin.

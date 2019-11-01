@@ -1,0 +1,51 @@
+// width begin.
+$wi-size: 5;
+@while $wi-size <= 1000 {
+  .w-#{$wi-size} {
+    width: 1px * $wi-size !important;
+  }
+  $wi-size: $wi-size + 1;
+}
+
+$wp: 1;
+@while $wp <= 100 {
+  .wp-#{$wp} {
+    width: 1% * $wp !important;
+  }
+  .max-wp-#{$wp} {
+    width: 1% * $wp !important;
+  }
+  $wp: $wp + 1;
+}
+
+.full-width {
+  width: 100% !important;
+}
+
+.max-100 {
+  max-width: 100% !important;
+}
+// width finish.
+
+// height begin.
+$hi-size: 5;
+@while $hi-size <= 1000 {
+  .h-#{$hi-size} {
+    height: 1px * $hi-size !important;
+    line-height: 1px * $hi-size !important;
+  }
+  $hi-size: $hi-size + 1;
+}
+
+$hp: 1;
+@while $hp <= 100 {
+  .hp-#{$hp} {
+    height: 1% * $hp !important;
+  }
+  $hp: $hp + 1;
+}
+
+.full-height {
+  height: 100% !important;
+}
+// height finish.
