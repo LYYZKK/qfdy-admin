@@ -17,13 +17,10 @@ import ModalMixin from '@/mixins/ModalMixin'
 
 import { Modal, Row, Button } from 'ant-design-vue'
 
-import callChatContent from '@/views/my/components/call/call-chat-section/call-chat-content.vue'
-
 export default {
   name: 'Modal',
   mixins: [ModalMixin],
   components: {
-    callChatContent,
     AModal: Modal,
     ARow: Row,
     AButton: Button
