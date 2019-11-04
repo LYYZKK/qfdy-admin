@@ -19,7 +19,7 @@ const api = {
     method: 'get'
   },
   getAllUsers: {
-    url: '/user/users'
+    url: '/users'
   }
 }
 

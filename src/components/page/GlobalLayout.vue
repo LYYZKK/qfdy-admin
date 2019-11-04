@@ -56,7 +56,7 @@
 
     <a-layout
       :class="[layoutMode, `content-width-${contentWidth}`]"
-      :style="{ paddingLeft: fixSiderbar && isDesktop() ? `${sidebarOpened ? 200 : 80}px` : `0`, height: `${hasPermission(permissions.ctiBar) ? (fullHeight() - 52) : fullHeight()}px` }"
+      :style="{ paddingLeft: fixSiderbar && isDesktop() ? `${collapsed ? 80 : 200}px` : `0`, height: `${hasPermission(permissions.ctiBar) ? (fullHeight() - 52) : fullHeight()}px` }"
     >
       <!-- layout header -->
       <global-header
@@ -119,11 +119,6 @@ export default {
       // 后台菜单
       permissionMenuList: state => state.user.permissionList
     })
-  },
-  watch: {
-    sidebarOpened(val) {
-      this.collapsed = !val
-    }
   },
   created() {
     this.menus = this.permissionMenuList

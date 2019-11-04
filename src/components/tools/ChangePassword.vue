@@ -158,7 +158,7 @@ export default {
       form: this.$form.createForm(this),
       api: {
         changePassword: {
-          url: 'user/users/change-password',
+          url: 'users/change-password',
           method: 'patch'
         }
       },

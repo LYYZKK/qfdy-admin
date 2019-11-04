@@ -150,7 +150,7 @@ export default {
           method: 'get'
         },
         getUsers: {
-          url: '/user/users',
+          url: '/users',
           method: 'get'
         }
       },

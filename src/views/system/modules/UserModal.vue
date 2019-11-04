@@ -193,15 +193,15 @@ export default {
       },
       api: {
         add: {
-          url: '/user/users/extension',
+          url: '/users/extension',
           method: 'post'
         },
         edit: {
-          url: '/user/users/extension',
+          url: '/users/extension',
           method: 'patch'
         },
         getById: {
-          url: '/user/users/{id}',
+          url: '/users/{id}',
           method: 'get'
         },
         getUserExtensionsFields: {
@@ -213,7 +213,7 @@ export default {
           method: 'get'
         },
         getRolesByUserId: {
-          url: '/auth/users/{userId}/roles',
+          url: '/users/{userId}/roles',
           method: 'get'
         },
         getExtensionsByUser: {

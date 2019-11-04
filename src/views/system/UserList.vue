@@ -249,8 +249,8 @@ export default {
         }
       ],
       url: {
-        list: '/user/users',
-        deleteBatch: '/user/users/{ids}'
+        list: '/users',
+        deleteBatch: '/users/{ids}'
       }
     }
   }

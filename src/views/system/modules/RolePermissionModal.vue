@@ -93,11 +93,11 @@ export default {
           method: 'get'
         },
         getPermissionsByRoleId: {
-          url: '/auth/roles/{roleId}/permissions',
+          url: 'roles/{roleId}/permissions',
           method: 'get'
         },
         updatePermissionsByRoleId: {
-          url: '/auth/roles/{roleId}/permissions',
+          url: 'roles/{roleId}/permissions',
           method: 'put'
         }
       }
@@ -118,26 +118,28 @@ export default {
       this.roleId = roleId
       this.visible = true
 
-      request({ ...this.api.getPermissions, params: { pageSize: constantConfig.MAX_PAGE_SIZE, scope: 'all' } }).then(permissionsRes => {
-        if (permissionsRes.success) {
-          this.treeData = buildTreeDataForAntd({ data: permissionsRes.data }).data
-          this.allTreeKeys = buildTreeDataForAntd({ data: permissionsRes.data }).ids
-          this.expandedKeys = this.allTreeKeys
+      request({ ...this.api.getPermissions, params: { pageSize: constantConfig.MAX_PAGE_SIZE, scope: 'all' } }).then(
+        permissionsRes => {
+          if (permissionsRes.success) {
+            this.treeData = buildTreeDataForAntd({ data: permissionsRes.data }).data
+            this.allTreeKeys = buildTreeDataForAntd({ data: permissionsRes.data }).ids
+            this.expandedKeys = this.allTreeKeys
 
-          request({
-            ...this.api.getPermissionsByRoleId,
-            urlReplacements: [{ substr: '{roleId}', replacement: this.roleId }]
-          }).then(rolePermissionsRes => {
-            const permissionIds = []
-            rolePermissionsRes.data.forEach(item => {
-              permissionIds.push(toString(item.permissionId))
+            request({
+              ...this.api.getPermissionsByRoleId,
+              urlReplacements: [{ substr: '{roleId}', replacement: this.roleId }]
+            }).then(rolePermissionsRes => {
+              const permissionIds = []
+              rolePermissionsRes.data.forEach(item => {
+                permissionIds.push(toString(item.permissionId))
+              })
+
+              this.checkedKeys = permissionIds
+              this.defaultCheckedKeys = permissionIds
             })
-
-            this.checkedKeys = permissionIds
-            this.defaultCheckedKeys = permissionIds
-          })
+          }
         }
-      })
+      )
     },
     close() {
       this.reset()
