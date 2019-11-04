@@ -107,7 +107,6 @@ export default {
       permissions: {
         ctiBar: 'cti-bar'
       },
-      collapsed: false,
       activeMenu: {},
       menus: []
     }
@@ -117,22 +116,24 @@ export default {
       // 主路由
       mainRouters: state => state.permission.addRouters,
       // 后台菜单
-      permissionMenuList: state => state.user.permissionList
+      permissionMenuList: state => state.user.permissionList,
+      collapsed: state => !state.app.sidebar.opened
     })
   },
   created() {
     this.menus = this.permissionMenuList
   },
   methods: {
-    ...mapActions(['setSidebar']),
+    ...mapActions(['ToggerSidebar', 'setSidebar']),
     toggle() {
-      this.collapsed = !this.collapsed
-      this.setSidebar(!this.collapsed)
+      this.ToggerSidebar()
       triggerWindowResizeEvent()
     },
     menuSelect() {
       if (!this.isDesktop()) {
         this.collapsed = false
+        this.setSidebar(true)
+        triggerWindowResizeEvent()
       }
     },
     // update-begin-author:taoyan date:20190430 for:动态路由title显示配置的菜单title而不是其对应路由的title

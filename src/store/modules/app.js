@@ -35,6 +35,10 @@ const app = {
       state.sidebar.opened = type
       Vue.ls.set(SIDEBAR_TYPE, type)
     },
+    TOGGLE_SIDEBAR: state => {
+      state.sidebar.opened = !state.sidebar.opened
+      Vue.ls.set(SIDEBAR_TYPE, state.sidebar.opened)
+    },
     CLOSE_SIDEBAR: (state, withoutAnimation) => {
       Vue.ls.set(SIDEBAR_TYPE, true)
       state.sidebar.opened = false
@@ -87,6 +91,9 @@ const app = {
   actions: {
     setSidebar: ({ commit }, type) => {
       commit('SET_SIDEBAR_TYPE', type)
+    },
+    ToggerSidebar: ({ commit }) => {
+      commit('TOGGLE_SIDEBAR')
     },
     CloseSidebar({ commit }, { withoutAnimation }) {
       commit('CLOSE_SIDEBAR', withoutAnimation)
