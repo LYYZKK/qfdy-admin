@@ -3,15 +3,13 @@ import router from './router'
 import store from './store'
 import NProgress from 'nprogress' // progress bar
 import 'nprogress/nprogress.css' // progress bar style
-import {
-  ACCESS_TOKEN
-} from '@/store/mutation-types'
+import { ACCESS_TOKEN } from '@/store/mutation-types'
 
 NProgress.configure({
   showSpinner: false
 }) // NProgress Configuration
 
-const whiteList = ['/user/login', '/webchat', '/payment-order', '/promotion-link'] // no redirect whitelist
+const whiteList = ['/user/login'] // no redirect whitelist
 
 router.beforeEach((to, from, next) => {
   NProgress.start() // start progress bar

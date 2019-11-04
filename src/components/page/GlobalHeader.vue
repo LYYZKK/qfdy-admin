@@ -19,7 +19,7 @@
         @click.native="toggle"
       />
 
-      <span v-if="device === 'desktop'">欢迎进入 Wise CRM 呼叫中心运营平台</span>
+      <span v-if="device === 'desktop'">欢迎进入乔府商城管理后台</span>
 
       <user-menu :theme="theme" />
     </div>

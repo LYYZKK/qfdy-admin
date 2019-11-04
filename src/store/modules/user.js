@@ -1,4 +1,3 @@
-import filter from 'lodash.filter'
 import Vue from 'vue'
 import { ACCESS_TOKEN, USER_NAME, USER_INFO } from '@/store/mutation-types'
 import { welcome, getRecursiveRouterForMenuData } from '@/utils/util'
@@ -12,11 +11,7 @@ const api = {
     method: 'post'
   },
   getPermissionsByUserId: {
-    url: '/auth/users/{userId}/permissions',
-    method: 'get'
-  },
-  getExtensionsByUserId: {
-    url: '/user/user-extensions',
+    url: '/users/{userId}/permissions',
     method: 'get'
   },
   logout: {
@@ -148,16 +143,16 @@ const user = {
           })
 
         // 存储坐席用户的软话机号码数据.
-        request({
-          ...api.getExtensionsByUserId,
-          params: {
-            userId
-          }
-        }).then(res => {
-          if (res.success) {
-            commit('SET_SOFT_PHONE_NO', filter(res.data, { fieldCode: 'soft-phone-no' }))
-          }
-        })
+        // request({
+        //   ...api.getExtensionsByUserId,
+        //   params: {
+        //     userId
+        //   }
+        // }).then(res => {
+        //   if (res.success) {
+        //     commit('SET_SOFT_PHONE_NO', filter(res.data, { fieldCode: 'soft-phone-no' }))
+        //   }
+        // })
       })
     },
 
