@@ -219,7 +219,7 @@ export default {
         {
           title: '真实姓名',
           align: 'center',
-          dataIndex: 'realname'
+          dataIndex: 'realName'
         },
         {
           title: '用户名',

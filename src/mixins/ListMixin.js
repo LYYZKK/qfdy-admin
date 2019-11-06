@@ -235,10 +235,8 @@ export default {
         ...this.queryParam
       }
       // param.fields = this.getQueryFields()
-
       // this.filterQueryParamsByQueryType()
       // param.conditions = JSON.stringify(this.queryParamWithQueryType)
-
       // param.sorts = this.isorter.sortColumn
       //   ? JSON.stringify([{ field: this.isorter.sortColumn, direction: this.isorter.sortOrder }])
       //   : []

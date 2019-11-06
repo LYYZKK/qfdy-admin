@@ -93,11 +93,11 @@ export default {
           method: 'get'
         },
         getPermissionsByRoleId: {
-          url: 'roles/{roleId}/permissions',
+          url: '/auth/roles/{roleId}/permissions',
           method: 'get'
         },
         updatePermissionsByRoleId: {
-          url: 'roles/{roleId}/permissions',
+          url: '/auth/roles/{roleId}/permissions',
           method: 'put'
         }
       }

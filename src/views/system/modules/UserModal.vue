@@ -24,9 +24,9 @@
               <a-input
                 v-if="['add', 'edit'].includes(operateType)"
                 placeholder="请输入真实姓名"
-                v-decorator="['realname', validatorRules.realname]"
+                v-decorator="['realName', validatorRules.realName]"
               />
-              <template v-else>{{ model.realname }}</template>
+              <template v-else>{{ model.realName }}</template>
             </a-form-item>
           </a-col>
           <a-col class="gutter-row" v-bind="formColResponsiveCfg" v-if="operateType=='add'">
@@ -62,12 +62,7 @@
           </a-col>
           <a-col class="gutter-row" v-bind="formColResponsiveCfg">
             <a-form-item v-bind="formItemResponsiveCfg" label="角色" hasFeedback>
-              <a-select
-                mode="multiple"
-                placeholder="请选择用户角色"
-                v-model="selectedRole"
-                @change="changeRoleGetFields"
-              >
+              <a-select mode="multiple" placeholder="请选择用户角色" v-model="selectedRole">
                 <a-select-option
                   v-for="(role,roleindex) in roleList"
                   :key="roleindex.toString()"
@@ -162,7 +157,7 @@ export default {
         }
       },
       validatorRules: {
-        realname: { rules: [{ required: true, message: '请输入真实姓名!' }] },
+        realName: { rules: [{ required: true, message: '请输入真实姓名!' }] },
         email: { rules: [{ required: true, type: 'email', message: '请输入正确的邮箱!' }] },
         fieldValue: { rules: [{ required: true, message: '扩展字段不能为空!' }] },
         password: {
@@ -193,35 +188,35 @@ export default {
       },
       api: {
         add: {
-          url: '/users/extension',
+          url: '/users',
           method: 'post'
         },
         edit: {
-          url: '/users/extension',
+          url: '/users',
           method: 'patch'
         },
         getById: {
           url: '/users/{id}',
           method: 'get'
         },
-        getUserExtensionsFields: {
-          url: '/user/user-extension-fields',
-          method: 'get'
-        },
+        // getUserExtensionsFields: {
+        //   url: '/user/user-extension-fields',
+        //   method: 'get'
+        // },
         getRoles: {
           url: '/auth/roles',
           method: 'get'
         },
         getRolesByUserId: {
-          url: '/users/{userId}/roles',
-          method: 'get'
-        },
-        getExtensionsByUser: {
-          url: '/user/user-extensions',
+          url: '/auth/users/{userId}/roles',
           method: 'get'
         }
+        // getExtensionsByUser: {
+        //   url: '/user/user-extensions',
+        //   method: 'get'
+        // }
       },
-      formFields: ['id', 'username', 'realname', 'email'],
+      formFields: ['id', 'username', 'realName', 'email'],
       selectedRole: [],
       roleList: [],
       fields: []
@@ -232,31 +227,11 @@ export default {
       this.fields = []
       this.getAllRoles()
       this.getRolsByUser()
-      this.getExtensionByUser()
+      // this.getExtensionByUser()
     },
     beforeAdd() {
       this.fields = []
       this.getAllRoles()
-    },
-
-    // 更改角色查询可用扩展字段
-    changeRoleGetFields() {
-      this.fields = []
-      request({
-        ...this.api.getUserExtensionsFields,
-        params: { roleIds: this.selectedRole.join(',') }
-      }).then(res => {
-        if (res.success) {
-          for (var i = 0; i < res.data.length; i++) {
-            const data = {
-              fieldName: res.data[i].fieldName,
-              userExtensionFieldId: res.data[i].id,
-              fieldValue: ''
-            }
-            this.fields.push(data)
-          }
-        }
-      })
     },
 
     // 查询指定用户所有扩展字段
@@ -324,14 +299,11 @@ export default {
         }
       }
       formData = {
-        user: {
-          id: formData.id,
-          realname: formData.realname,
-          username: formData.username,
-          password: formData.password,
-          email: formData.email
-        },
-        userExtensionsCUModel: this.fields,
+        id: formData.id,
+        realName: formData.realName,
+        username: formData.username,
+        password: formData.password,
+        email: formData.email,
         roleIds: this.selectedRole
       }
       return formData

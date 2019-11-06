@@ -248,23 +248,23 @@ export default {
       },
       api: {
         add: {
-          url: '/system/dictitems',
+          url: '/system/dict-items',
           method: 'post'
         },
         edit: {
-          url: '/system/dictitems',
+          url: '/system/dict-items',
           method: 'patch'
         },
         getById: {
-          url: '/system/dictitems/{id}',
+          url: '/system/dict-items/{id}',
           method: 'get'
         },
         getTreeList: {
-          url: '/system/dicts/{id}/items',
+          url: '/system/dict-items/{id}',
           method: 'get'
         },
         duplicateCheck: {
-          url: '/system/dictitems/duplicate/check',
+          url: '/system/dict-items/duplicate/check',
           method: 'post'
         }
       },

@@ -12,15 +12,6 @@
                   <a-input placeholder="请输入字典项文本" v-model="queryParam.itemText"></a-input>
                 </a-form-item>
               </a-col>
-              <!-- <a-col v-bind="formColResponsiveCfg">
-                <a-form-item v-bind="formItemResponsiveCfg" label="启用状态">
-                  <a-select placeholder="请选择" v-model="queryParam.enabled">
-                    <a-select-option value>全部</a-select-option>
-                    <a-select-option value="1">正常</a-select-option>
-                    <a-select-option value="0">禁用</a-select-option>
-                  </a-select>
-                </a-form-item>
-              </a-col>-->
               <a-col v-bind="formColResponsiveCfg">
                 <span class="table-page-search-submitButtons f-l">
                   <a-button type="primary" @click="searchQuery">搜索</a-button>
@@ -200,7 +191,7 @@ export default {
       },
       url: {
         list: '/system/dicts/{id}/items',
-        deleteBatch: '/system/dictitems/{ids}'
+        deleteBatch: '/system/dicts/{ids}'
       },
       isorter: {
         sortColumn: 'itemSort',
