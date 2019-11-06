@@ -10,65 +10,76 @@
       <a-form :form="form" :class="[['show'].includes(operateType) ? 'view-form' : null]">
         <a-row :gutter="16">
           <a-col class="gutter-row" v-bind="formColResponsiveCfg">
-            <a-form-item v-bind="formItemResponsiveCfg" label="名称" hasFeedback>
+            <a-form-item v-bind="formItemResponsiveCfg" label="订单编号" hasFeedback>
               <a-input
                 v-if="['add', 'edit'].includes(operateType)"
-                placeholder="请输入商品名称"
-                v-decorator="['name', validatorRules.name]"
+                placeholder="请输入订单编号"
+                v-decorator="['orderNo', validatorRules.orderNo]"
               />
-              <template v-else>{{ model.name }}</template>
+              <template v-else>{{ model.orderNo }}</template>
             </a-form-item>
           </a-col>
           <a-col class="gutter-row" v-bind="formColResponsiveCfg">
-            <a-form-item v-bind="formItemResponsiveCfg" label="单价" hasFeedback>
+            <a-form-item v-bind="formItemResponsiveCfg" label="总金额" hasFeedback>
               <a-input-number
                 v-if="['add', 'edit'].includes(operateType)"
-                placeholder="请输入"
-                v-decorator="['price', validatorRules.price]"
+                placeholder="请输入总金额"
+                v-decorator="['totalAmount', validatorRules.totalAmount]"
               />
-              <template v-else>{{ model.price }}</template>
+              <template v-else>{{ model.totalAmount }}</template>
             </a-form-item>
           </a-col>
+
           <a-col class="gutter-row" v-bind="formColResponsiveCfg">
-            <a-form-item v-bind="formItemResponsiveCfg" label="库存" hasFeedback>
-              <a-input-number
-                v-if="['add', 'edit'].includes(operateType)"
-                placeholder="请输入"
-                v-decorator="['totalCount', validatorRules.price]"
-              />
-              <template v-else>{{ model.totalCount }}</template>
-            </a-form-item>
-          </a-col>
-          <a-col class="gutter-row" v-bind="formColResponsiveCfg">
-            <a-form-item v-bind="formItemResponsiveCfg" label="图片" hasFeedback>
-              <a-input
-                v-if="['add', 'edit'].includes(operateType)"
-                placeholder="请输入图片路径"
-                v-decorator="['img', {}]"
-              />
-              <template v-else>
-                <img :src="model.img" width="100" />
-              </template>
-            </a-form-item>
-          </a-col>
-          <a-col class="gutter-row" v-bind="formColResponsiveCfg">
-            <a-form-item v-bind="formItemResponsiveCfg" label="URL" hasFeedback>
+            <a-form-item v-bind="formItemResponsiveCfg" label="订单状态" hasFeedback>
               <a-input
                 v-if="['add', 'edit'].includes(operateType)"
                 placeholder="请输入商品详情页RUL"
-                v-decorator="['url',{}]"
+                v-decorator="['orderStatus',{}]"
               />
-              <template v-else>{{ model.url }}</template>
+              <template
+                v-else
+              >{{ model.orderStatus === 0 ? '待支付' : model.orderStatus === 1 ? '已支付' : model.orderStatus === 1 ? '取消中' : model.orderStatus === 2 ? '已取消' : '' }}</template>
             </a-form-item>
           </a-col>
           <a-col class="gutter-row" v-bind="formColResponsiveCfg">
-            <a-form-item v-bind="formItemResponsiveCfg" label="商品描述" hasFeedback>
+            <a-form-item v-bind="formItemResponsiveCfg" label="下单时间" hasFeedback>
               <a-input
                 v-if="['add', 'edit'].includes(operateType)"
-                placeholder="请输入商品描述"
-                v-decorator="['description', {}]"
+                placeholder="请输入下单时间"
+                v-decorator="['orderTime', {}]"
               />
-              <template v-else>{{ model.description }}</template>
+              <template v-else>{{ model.orderTime }}</template>
+            </a-form-item>
+          </a-col>
+          <a-col class="gutter-row" v-bind="formColResponsiveCfg">
+            <a-form-item v-bind="formItemResponsiveCfg" label="支付时间" hasFeedback>
+              <a-input
+                v-if="['add', 'edit'].includes(operateType)"
+                placeholder="请输入支付时间"
+                v-decorator="['payTime', {}]"
+              />
+              <template v-else>{{ model.payTime }}</template>
+            </a-form-item>
+          </a-col>
+          <a-col class="gutter-row" v-bind="formColResponsiveCfg">
+            <a-form-item v-bind="formItemResponsiveCfg" label="取消时间" hasFeedback>
+              <a-input
+                v-if="['add', 'edit'].includes(operateType)"
+                placeholder="请输入订单取消时间"
+                v-decorator="['orderCancelTime', {}]"
+              />
+              <template v-else>{{ model.orderCancelTime }}</template>
+            </a-form-item>
+          </a-col>
+          <a-col class="gutter-row" v-bind="formColResponsiveCfg">
+            <a-form-item v-bind="formItemResponsiveCfg" label="备注" hasFeedback>
+              <a-input
+                v-if="['add', 'edit'].includes(operateType)"
+                placeholder="请输入订单备注"
+                v-decorator="['mark', {}]"
+              />
+              <template v-else>{{ model.mark }}</template>
             </a-form-item>
           </a-col>
         </a-row>
@@ -104,7 +115,7 @@ import JDictViewTag from '@/components/dict/JDictViewTag.vue'
 import JDate from '@/components/jeecg/JDate.vue'
 
 export default {
-  name: 'ProductModal',
+  name: 'OrderModal',
   mixins: [ModalMixin],
   components: {
     AModal: Modal,
@@ -154,15 +165,15 @@ export default {
       },
       api: {
         add: {
-          url: '/products',
+          url: '/orders',
           method: 'post'
         },
         edit: {
-          url: '/products',
+          url: '/orders',
           method: 'patch'
         },
         getById: {
-          url: '/products/{id}',
+          url: '/orders/{id}',
           method: 'get'
         }
       },

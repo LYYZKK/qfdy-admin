@@ -231,18 +231,20 @@ export default {
 
       // 获取查询条件
       var param = {
-        ...this.defaultParam
+        ...this.defaultParam,
+        ...this.queryParam
       }
-      param.fields = this.getQueryFields()
+      // param.fields = this.getQueryFields()
 
-      this.filterQueryParamsByQueryType()
-      param.conditions = JSON.stringify(this.queryParamWithQueryType)
+      // this.filterQueryParamsByQueryType()
+      // param.conditions = JSON.stringify(this.queryParamWithQueryType)
 
-      param.sorts = this.isorter.sortColumn
-        ? JSON.stringify([{ field: this.isorter.sortColumn, direction: this.isorter.sortOrder }])
-        : []
+      // param.sorts = this.isorter.sortColumn
+      //   ? JSON.stringify([{ field: this.isorter.sortColumn, direction: this.isorter.sortOrder }])
+      //   : []
       param.pageNo = this.ipagination.current
       param.pageSize = this.ipagination.pageSize
+
       return filterObj(param)
     },
     getQueryFields() {

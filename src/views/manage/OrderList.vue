@@ -11,7 +11,7 @@
           </a-col>
           <span class="table-page-search-submitButtons">
             <a-col v-bind="formColResponsiveCfg">
-              <a-button type="primary" @click="searchQuery" icon="search">查询</a-button>
+              <a-button type="primary" @click="searchQuery(queryParam)" icon="search">查询</a-button>
               <a-button type="primary" @click="searchReset" icon="reload">重置</a-button>
             </a-col>
           </span>
@@ -87,31 +87,11 @@
           <a @click="handleShow(record)">
             <a-icon type="eye" />查看
           </a>
-
-          <a-divider type="vertical" />
-          <a @click="handleEdit(record)">
-            <a-icon type="edit" />编辑
-          </a>
-
-          <!-- <a-divider type="vertical" /> -->
-          <!-- <a-dropdown>
-            <a class="ant-dropdown-link">
-              更多
-              <a-icon type="down" />
-            </a>
-            <a-menu slot="overlay">
-              <a-menu-item>
-                <a-popconfirm title="确定删除吗?" @confirm="() => handleDelete(record.id)">
-                  <a>删除</a>
-                </a-popconfirm>
-              </a-menu-item>
-            </a-menu>
-          </a-dropdown>-->
         </span>
       </a-table>
     </div>
     <!-- table区域-end -->
-    <!-- <user-modal ref="modalForm" @ok="modalFormOk"></user-modal> -->
+    <order-modal ref="modalForm" @ok="modalFormOk"></order-modal>
   </a-card>
 </template>
 
@@ -119,7 +99,7 @@
 import DictMixin from '@/mixins/DictMixin'
 import ListMixin from '@/mixins/ListMixin'
 import KeepAliveMixin from '@/mixins/KeepAliveMixin'
-// import UserModal from './modules/UserModal'
+import OrderModal from './modules/OrderModal'
 import {
   Alert,
   Card,
@@ -145,7 +125,7 @@ export default {
   name: 'UserList',
   mixins: [KeepAliveMixin, ListMixin, DictMixin],
   components: {
-    // UserModal,
+    OrderModal,
     AAlert: Alert,
     ACard: Card,
     AForm: Form,
@@ -216,6 +196,11 @@ export default {
           title: '订单编号',
           align: 'center',
           dataIndex: 'orderNo'
+        },
+        {
+          title: '总金额',
+          align: 'center',
+          dataIndex: 'totalAmount'
         },
         {
           title: '下单时间',

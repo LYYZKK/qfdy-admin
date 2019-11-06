@@ -10,65 +10,33 @@
       <a-form :form="form" :class="[['show'].includes(operateType) ? 'view-form' : null]">
         <a-row :gutter="16">
           <a-col class="gutter-row" v-bind="formColResponsiveCfg">
-            <a-form-item v-bind="formItemResponsiveCfg" label="名称" hasFeedback>
+            <a-form-item v-bind="formItemResponsiveCfg" label="姓名" hasFeedback>
               <a-input
                 v-if="['add', 'edit'].includes(operateType)"
-                placeholder="请输入商品名称"
+                placeholder="请输入客户姓名"
                 v-decorator="['name', validatorRules.name]"
               />
               <template v-else>{{ model.name }}</template>
             </a-form-item>
           </a-col>
           <a-col class="gutter-row" v-bind="formColResponsiveCfg">
-            <a-form-item v-bind="formItemResponsiveCfg" label="单价" hasFeedback>
+            <a-form-item v-bind="formItemResponsiveCfg" label="手机号" hasFeedback>
+              <a-input
+                v-if="['add', 'edit'].includes(operateType)"
+                placeholder="请输入客户手机号"
+                v-decorator="['phone', {}]"
+              />
+              <template v-else>{{ model.phone }}</template>
+            </a-form-item>
+          </a-col>
+          <a-col class="gutter-row" v-bind="formColResponsiveCfg">
+            <a-form-item v-bind="formItemResponsiveCfg" label="地址" hasFeedback>
               <a-input-number
                 v-if="['add', 'edit'].includes(operateType)"
                 placeholder="请输入"
-                v-decorator="['price', validatorRules.price]"
+                v-decorator="['address',{}]"
               />
-              <template v-else>{{ model.price }}</template>
-            </a-form-item>
-          </a-col>
-          <a-col class="gutter-row" v-bind="formColResponsiveCfg">
-            <a-form-item v-bind="formItemResponsiveCfg" label="库存" hasFeedback>
-              <a-input-number
-                v-if="['add', 'edit'].includes(operateType)"
-                placeholder="请输入"
-                v-decorator="['totalCount', validatorRules.price]"
-              />
-              <template v-else>{{ model.totalCount }}</template>
-            </a-form-item>
-          </a-col>
-          <a-col class="gutter-row" v-bind="formColResponsiveCfg">
-            <a-form-item v-bind="formItemResponsiveCfg" label="图片" hasFeedback>
-              <a-input
-                v-if="['add', 'edit'].includes(operateType)"
-                placeholder="请输入图片路径"
-                v-decorator="['img', {}]"
-              />
-              <template v-else>
-                <img :src="model.img" width="100" />
-              </template>
-            </a-form-item>
-          </a-col>
-          <a-col class="gutter-row" v-bind="formColResponsiveCfg">
-            <a-form-item v-bind="formItemResponsiveCfg" label="URL" hasFeedback>
-              <a-input
-                v-if="['add', 'edit'].includes(operateType)"
-                placeholder="请输入商品详情页RUL"
-                v-decorator="['url',{}]"
-              />
-              <template v-else>{{ model.url }}</template>
-            </a-form-item>
-          </a-col>
-          <a-col class="gutter-row" v-bind="formColResponsiveCfg">
-            <a-form-item v-bind="formItemResponsiveCfg" label="商品描述" hasFeedback>
-              <a-input
-                v-if="['add', 'edit'].includes(operateType)"
-                placeholder="请输入商品描述"
-                v-decorator="['description', {}]"
-              />
-              <template v-else>{{ model.description }}</template>
+              <template v-else>{{ model.address }}</template>
             </a-form-item>
           </a-col>
         </a-row>
@@ -104,7 +72,7 @@ import JDictViewTag from '@/components/dict/JDictViewTag.vue'
 import JDate from '@/components/jeecg/JDate.vue'
 
 export default {
-  name: 'ProductModal',
+  name: 'CustomerModal',
   mixins: [ModalMixin],
   components: {
     AModal: Modal,
@@ -154,15 +122,15 @@ export default {
       },
       api: {
         add: {
-          url: '/products',
+          url: '/customers',
           method: 'post'
         },
         edit: {
-          url: '/products',
+          url: '/customers',
           method: 'patch'
         },
         getById: {
-          url: '/products/{id}',
+          url: '/customers/{id}',
           method: 'get'
         }
       },

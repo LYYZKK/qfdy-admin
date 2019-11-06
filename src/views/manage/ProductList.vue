@@ -6,7 +6,7 @@
         <a-row :gutter="16">
           <a-col v-bind="formColResponsiveCfg">
             <a-form-item label="商品名称">
-              <a-input placeholder="请输入商品名称查询" v-model="queryParam.orderNo"></a-input>
+              <a-input placeholder="请输入商品名称查询" v-model="queryParam.name"></a-input>
             </a-form-item>
           </a-col>
           <span class="table-page-search-submitButtons">
@@ -41,7 +41,6 @@
         <i class="anticon anticon-info-circle ant-alert-icon"></i>已选择
         <a class="numbers">{{ selectedRowKeys.length }}</a>&nbsp;项
         <a class="clear" @click="onClearSelected">清空</a>
-
         <span class="tab-alert-action">
           <a-button type="link" icon="sync" @click="refresh()">刷新</a-button>
           <a-divider type="vertical" />
@@ -94,19 +93,11 @@
           </a>
 
           <a-divider type="vertical" />
-          <a-dropdown>
-            <a class="ant-dropdown-link">
-              更多
-              <a-icon type="down" />
+          <a-popconfirm title="确定删除吗?" @confirm="() => handleDelete(record.id)">
+            <a>
+              <a-icon type="delete" />删除
             </a>
-            <a-menu slot="overlay">
-              <a-menu-item>
-                <a-popconfirm title="确定删除吗?" @confirm="() => handleDelete(record.id)">
-                  <a>删除</a>
-                </a-popconfirm>
-              </a-menu-item>
-            </a-menu>
-          </a-dropdown>
+          </a-popconfirm>
         </span>
       </a-table>
     </div>
@@ -140,6 +131,7 @@ import {
 } from 'ant-design-vue'
 
 import JDictSelectTag from '@/components/dict/JDictSelectTag.vue'
+import { request } from '@/api'
 
 export default {
   name: 'UserList',
@@ -237,6 +229,12 @@ export default {
       url: {
         list: '/products',
         deleteBatch: '/products/{ids}'
+      },
+      api: {
+        list: {
+          url: '/products',
+          method: 'get'
+        }
       }
     }
   }

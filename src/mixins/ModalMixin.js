@@ -136,6 +136,7 @@ export default {
 
           this.confirmLoading = true
           if (this.testingMode) {
+            console.log('into handleOk 6')
             request2({ ...requestParam, params: formData, urlReplacements })
               .then(res => {
                 requestThen(res)
@@ -144,6 +145,7 @@ export default {
                 _this.confirmLoading = false
               })
           } else {
+            console.log('into handleOk 7')
             request({ ...requestParam, params: formData, urlReplacements })
               .then(res => {
                 requestThen(res)

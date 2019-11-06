@@ -6,34 +6,23 @@
         <a-row :gutter="16">
           <a-col v-bind="formColResponsiveCfg">
             <a-form-item label="姓名">
-              <a-input placeholder="请输入姓名查询" v-model="queryParam.orderNo"></a-input>
+              <a-input placeholder="请输入姓名查询" v-model="queryParam.name"></a-input>
+            </a-form-item>
+          </a-col>
+          <a-col v-bind="formColResponsiveCfg">
+            <a-form-item label="手机号">
+              <a-input placeholder="请输入手机号查询" v-model="queryParam.phone"></a-input>
             </a-form-item>
           </a-col>
           <span class="table-page-search-submitButtons">
             <a-col v-bind="formColResponsiveCfg">
-              <a-button type="primary" @click="searchQuery" icon="search">查询</a-button>
+              <a-button type="primary" @click="searchQuery(queryParam)" icon="search">查询</a-button>
               <a-button type="primary" @click="searchReset" icon="reload">重置</a-button>
             </a-col>
           </span>
         </a-row>
       </a-form>
     </div>
-
-    <!-- 操作按钮区域 -->
-    <!-- <div class="table-operator">
-      <a-button @click="handleAdd" type="primary" icon="plus">新增</a-button>
-      <a-dropdown v-if="selectedRowKeys.length > 0">
-        <a-menu slot="overlay">
-          <a-menu-item key="1" @click="batchDel">
-            <a-icon type="delete" />删除
-          </a-menu-item>
-        </a-menu>
-        <a-button>
-          批量操作
-          <a-icon type="down" />
-        </a-button>
-      </a-dropdown>
-    </div>-->
 
     <!-- table区域-begin -->
     <div>
@@ -92,26 +81,11 @@
           <a @click="handleEdit(record)">
             <a-icon type="edit" />编辑
           </a>
-
-          <!-- <a-divider type="vertical" /> -->
-          <!-- <a-dropdown>
-            <a class="ant-dropdown-link">
-              更多
-              <a-icon type="down" />
-            </a>
-            <a-menu slot="overlay">
-              <a-menu-item>
-                <a-popconfirm title="确定删除吗?" @confirm="() => handleDelete(record.id)">
-                  <a>删除</a>
-                </a-popconfirm>
-              </a-menu-item>
-            </a-menu>
-          </a-dropdown>-->
         </span>
       </a-table>
     </div>
     <!-- table区域-end -->
-    <!-- <user-modal ref="modalForm" @ok="modalFormOk"></user-modal> -->
+    <customer-modal ref="modalForm" @ok="modalFormOk"></customer-modal>
   </a-card>
 </template>
 
@@ -119,7 +93,7 @@
 import DictMixin from '@/mixins/DictMixin'
 import ListMixin from '@/mixins/ListMixin'
 import KeepAliveMixin from '@/mixins/KeepAliveMixin'
-// import UserModal from './modules/UserModal'
+import CustomerModal from './modules/CustomerModal'
 import {
   Alert,
   Card,
@@ -145,7 +119,7 @@ export default {
   name: 'UserList',
   mixins: [KeepAliveMixin, ListMixin, DictMixin],
   components: {
-    // UserModal,
+    CustomerModal,
     AAlert: Alert,
     ACard: Card,
     AForm: Form,
@@ -222,6 +196,7 @@ export default {
           align: 'center',
           dataIndex: 'phone'
         },
+
         {
           title: '地址',
           align: 'center',
