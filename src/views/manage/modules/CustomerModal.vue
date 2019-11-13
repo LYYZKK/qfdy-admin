@@ -117,7 +117,12 @@ export default {
       },
       validatorRules: {
         name: { rules: [{ required: true, message: '请输入客户姓名' }] },
-        phones: { rules: [{ required: true, message: '请输入手机号码!' }, { validator: this.validatePhones }] },
+        phone: {
+          rules: [
+            { required: true, message: '请输入手机号码!' },
+            { pattern: /^1[0-9]{10}$/, message: '请输入格式正确的手机号码' }
+          ]
+        },
         totalCount: { rules: [{ required: true, message: '请输入商品价格' }] }
       },
       api: {
