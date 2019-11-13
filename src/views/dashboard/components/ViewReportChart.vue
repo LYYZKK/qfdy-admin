@@ -38,12 +38,7 @@ export default {
         time: []
       },
       newValue: [],
-      shine,
-      roma,
-      vintage,
-      infographic,
-      dark,
-      macarons
+      shine
     }
   },
   props: {
@@ -90,7 +85,7 @@ export default {
             {
               name: '首页访问量',
               type: 'bar',
-
+              barWidth: 30,
               data: this.formmatViewData.indexViewNum
             },
             {

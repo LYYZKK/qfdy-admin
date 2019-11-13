@@ -17,6 +17,7 @@ import 'echarts/lib/component/tooltip'
 import 'echarts/lib/component/title'
 import 'echarts/lib/component/legend'
 import 'echarts/lib/component/legendScroll' // 图例滚
+import shine from 'echarts/theme/shine'
 export default {
   components: {
     ARow: Row,
@@ -25,6 +26,7 @@ export default {
   name: 'MyCharts',
   data() {
     return {
+      shine,
       formatOrderData: {
         amount: [],
         orderNum: [],
@@ -55,7 +57,7 @@ export default {
           this.formatOrderData.orderNum.push(item.orderNum)
           this.formatOrderData.time.push(item.time)
         })
-        let myChartOrder = echarts.init(document.getElementById('order', 'light'))
+        let myChartOrder = echarts.init(document.getElementById('order'), 'shine')
         let option = {
           tooltip: {
             trigger: 'axis'
@@ -75,13 +77,12 @@ export default {
             {
               name: '订单数量',
               type: 'bar',
-              stack: '总量',
+              barWidth: 30,
               data: this.formatOrderData.amount
             },
             {
               name: '订单金额',
               type: 'line',
-              stack: '总量',
               data: this.formatOrderData.orderNum
             }
           ]
