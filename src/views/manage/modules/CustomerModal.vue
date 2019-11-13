@@ -24,17 +24,17 @@
               <a-input
                 v-if="['add', 'edit'].includes(operateType)"
                 placeholder="请输入客户手机号"
-                v-decorator="['phone', {}]"
+                v-decorator="['phone', validatorRules.phone]"
               />
               <template v-else>{{ model.phone }}</template>
             </a-form-item>
           </a-col>
           <a-col class="gutter-row" v-bind="formColResponsiveCfg">
             <a-form-item v-bind="formItemResponsiveCfg" label="地址" hasFeedback>
-              <a-input-number
+              <a-input
                 v-if="['add', 'edit'].includes(operateType)"
-                placeholder="请输入"
-                v-decorator="['address',{}]"
+                placeholder="请输入客户手机号"
+                v-decorator="['address', {}]"
               />
               <template v-else>{{ model.address }}</template>
             </a-form-item>
@@ -116,8 +116,8 @@ export default {
         }
       },
       validatorRules: {
-        name: { rules: [{ required: true, message: '请输入商品名称' }] },
-        price: { rules: [{ required: true, message: '请输入商品价格' }] },
+        name: { rules: [{ required: true, message: '请输入客户姓名' }] },
+        phones: { rules: [{ required: true, message: '请输入手机号码!' }, { validator: this.validatePhones }] },
         totalCount: { rules: [{ required: true, message: '请输入商品价格' }] }
       },
       api: {
@@ -134,7 +134,7 @@ export default {
           method: 'get'
         }
       },
-      formFields: ['name', 'price', 'totalCount', 'img', 'url', 'description']
+      formFields: ['name', 'phone', 'address']
     }
   },
   methods: {
