@@ -17,6 +17,12 @@ import 'echarts/lib/component/tooltip'
 import 'echarts/lib/component/title'
 import 'echarts/lib/component/legend'
 import 'echarts/lib/component/legendScroll' // 图例滚
+import shine from 'echarts/theme/shine'
+// import roma from 'echarts/theme/roma'
+// import vintage from 'echarts/theme/vintage'
+// import dark from 'echarts/theme/dark'
+// import infographic from 'echarts/theme/infographic'
+// import macarons from 'echarts/theme/macarons'
 export default {
   components: {
     ARow: Row,
@@ -31,7 +37,13 @@ export default {
         spotViewNum: [],
         time: []
       },
-      newValue: []
+      newValue: [],
+      shine,
+      roma,
+      vintage,
+      infographic,
+      dark,
+      macarons
     }
   },
   props: {
@@ -58,18 +70,13 @@ export default {
           this.formmatViewData.spotViewNum.push(item.spotViewNum)
           this.formmatViewData.time.push(item.time)
         })
-        let myChart = echarts.init(document.getElementById('view'))
+        let myChart = echarts.init(document.getElementById('view'), 'shine')
         let option = {
           tooltip: {
             trigger: 'axis'
           },
           legend: {
-            data: ['首页访问量', '预购访问量', '现货访问量']
-          },
-          toolbox: {
-            feature: {
-              saveAsImage: {}
-            }
+            data: ['首页访问量', '现货访问量', '预购访问量']
           },
           xAxis: {
             type: 'category',
@@ -83,21 +90,18 @@ export default {
             {
               name: '首页访问量',
               type: 'bar',
-              stack: '总量',
-              width: 1,
+
               data: this.formmatViewData.indexViewNum
-            },
-            {
-              name: '预购访问量',
-              type: 'line',
-              stack: '总量',
-              data: this.formmatViewData.preViewNum
             },
             {
               name: '现货访问量',
               type: 'line',
-              stack: '总量',
               data: this.formmatViewData.spotViewNum
+            },
+            {
+              name: '预购访问量',
+              type: 'line',
+              data: this.formmatViewData.preViewNum
             }
           ]
         }
