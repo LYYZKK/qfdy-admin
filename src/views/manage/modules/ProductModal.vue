@@ -34,7 +34,7 @@
               <a-input-number
                 v-if="['add', 'edit'].includes(operateType)"
                 placeholder="请输入"
-                v-decorator="['totalCount', validatorRules.price]"
+                v-decorator="['totalCount', validatorRules.totalCount]"
               />
               <template v-else>{{ model.totalCount }}</template>
             </a-form-item>
@@ -150,7 +150,7 @@ export default {
       validatorRules: {
         name: { rules: [{ required: true, message: '请输入商品名称' }] },
         price: { rules: [{ required: true, message: '请输入商品价格' }] },
-        totalCount: { rules: [{ required: true, message: '请输入商品价格' }] }
+        totalCount: { rules: [{ required: true, message: '请输入商品库存' }] }
       },
       api: {
         add: {
