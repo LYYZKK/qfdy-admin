@@ -397,7 +397,7 @@ export function getStartTimestamp(timeStr, type) {
   } else {
     return new Error(`type 只支持[${typeArray}]`)
   }
-  return startTime.valueOf()
+  return startTime.format('YYYY-MM-DD HH:mm:ss')
 }
 
 // 获取一个时间的结束时间戳.
@@ -435,7 +435,7 @@ export function getEndTimestamp(timeStr, type) {
   } else {
     return new Error(`type 只支持[${typeArray}]`)
   }
-  return endTime.valueOf()
+  return endTime.format('YYYY-MM-DD HH:mm:ss')
 }
 
 export function getIDCardInfo(idcard) {

@@ -36,7 +36,8 @@ if (navigator.userAgent.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/)) {
 }
 import router from './router'
 import store from './store'
-
+// 引入 ECharts 主模块
+2
 new Vue({
   router,
   store,

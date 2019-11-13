@@ -1,4 +1,4 @@
-import { UserLayout } from '@/components/layouts'
+import { UserLayout, ViewRouter } from '@/components/layouts'
 
 /**
  * 基础路由
@@ -18,6 +18,23 @@ export const constantRouters = [
       }
     ]
   },
+  {
+    path: '/report',
+    component: ViewRouter,
+    children: [
+      {
+        path: '/view-report',
+        name: 'ViewReport',
+        component: () => import(/* webpackChunkName: "user" */ '@/views/report/ViewReport')
+      },
+      {
+        path: '/order-report',
+        name: 'OrderReport',
+        component: () => import(/* webpackChunkName: "user" */ '@/views/report/OrderReport')
+      }
+    ]
+  },
+
   {
     path: '/404',
     component: () => import(/* webpackChunkName: "fail" */ '@/views/exception/404')
