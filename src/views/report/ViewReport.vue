@@ -19,13 +19,12 @@
               <a-form-item label="开始时间">
                 <a-range-picker
                   :disabledDate="disabledDate"
-                  :disabledTime="disabledRangeTime"
                   :showTime="{
                     format: 'HH',
                     hideDisabledOptions: true,
-                    defaultValue: [moment('00:00:00', 'HH:mm:ss'), moment('11:59:59', 'HH:mm:ss')]
+                    defaultValue: [moment('00', 'HH'), moment('23', 'HH')]
                   }"
-                  format="YYYY-MM-DD HH:mm:ss"
+                  format="YYYY-MM-DD HH"
                   style="width:300px;"
                   @change="timeChnage"
                 />
@@ -35,7 +34,7 @@
               <a-form-item label="开始时间">
                 <a-range-picker
                   :placeholder="['开始月份', '结束月份']"
-                  format="YYYY-MM-DD HH:mm:ss"
+                  format="YYYY-MM"
                   :value="value"
                   :mode="mode"
                   @panelChange="handlePanelChange"
@@ -55,9 +54,6 @@
         </a-form>
       </div>
       <view-report-chart v-model="dataSource" v-if="dataSource.length!==0"></view-report-chart>
-    </a-card>
-    <a-card :bordered="false">
-      <!-- table区域-begin -->
       <div>
         <a-alert type="info" class="table-alert">
           <span slot="message">
@@ -130,6 +126,10 @@
         </a-table>
       </div>
     </a-card>
+    <!-- <a-card :bordered="false"> -->
+    <!-- table区域-begin -->
+
+    <!-- </a-card> -->
   </div>
 </template>
 

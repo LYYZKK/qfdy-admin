@@ -14,14 +14,14 @@
               </a-col>
               <a-col v-bind="formColResponsiveCfg">
                 <span class="table-page-search-submitButtons f-l">
-                  <a-button type="primary" @click="searchQuery">搜索</a-button>
-                  <a-button type="primary" @click="searchReset" class="m-l-8">重置</a-button>
+                  <a-button type="primary" @click="searchQuery" icon="search">查询</a-button>
+                  <a-button type="primary" @click="searchReset" class="m-l-8" icon="reload">重置</a-button>
                 </span>
               </a-col>
             </a-row>
             <a-row>
               <a-col v-bind="formColResponsiveCfg">
-                <a-button class="m-b-10" type="primary" @click="handleAdd">新增</a-button>
+                <a-button class="m-b-10" type="primary" @click="handleAdd" icon="plus">添加</a-button>
               </a-col>
             </a-row>
           </a-form>

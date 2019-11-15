@@ -63,27 +63,38 @@ export default {
             trigger: 'axis'
           },
           legend: {
-            data: ['订单数量', '订单金额']
+            data: ['订单数量', '订单金额', '订单平均金额']
           },
           xAxis: {
             type: 'category',
             boundaryGap: false,
             data: this.formatOrderData.time
           },
-          yAxis: {
-            type: 'value'
-          },
+          yAxis: [
+            {
+              type: 'value',
+              name: '订单金额'
+            },
+            {
+              type: 'value',
+              name: '订单数量'
+            }
+          ],
           series: [
             {
               name: '订单数量',
               type: 'bar',
-              barWidth: 30,
-              data: this.formatOrderData.amount
+              data: this.formatOrderData.orderNum
             },
             {
               name: '订单金额',
               type: 'line',
-              data: this.formatOrderData.orderNum
+              data: this.formatOrderData.amount
+            },
+            {
+              name: '订单平均金额',
+              type: 'line',
+              data: this.formatOrderData.avgAmount
             }
           ]
         }

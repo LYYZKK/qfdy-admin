@@ -15,27 +15,25 @@
                 />
               </a-form-item>
             </a-col>
-            <a-col :span="10" v-if="queryParam.type==='1'||queryParam.type==='2'">
-              <a-form-item label="开始时间">
+            <a-col v-bind="formColResponsiveCfg">
+              <a-form-item label="时间">
                 <a-range-picker
+                  v-if="queryParam.type==='1'||queryParam.type==='2'"
+                  :placeholder="['开始时间', '结束时间']"
                   :disabledDate="disabledDate"
-                  :disabledTime="disabledRangeTime"
                   :showTime="{
                     format: 'HH',
                     hideDisabledOptions: true,
-                    defaultValue: [moment('00:00:00', 'HH:mm:ss'), moment('11:59:59', 'HH:mm:ss')]
+                    defaultValue: [moment('00', 'HH'), moment('23', 'HH')]
                   }"
-                  format="YYYY-MM-DD HH:mm:ss"
+                  format="YYYY-MM-DD HH"
                   style="width:300px;"
                   @change="timeChnage"
                 />
-              </a-form-item>
-            </a-col>
-            <a-col :span="10" v-if="queryParam.type==='3'">
-              <a-form-item label="开始时间">
                 <a-range-picker
-                  :placeholder="['开始月份', '结束月份']"
-                  format="YYYY-MM-DD HH:mm:ss"
+                  v-if="queryParam.type==='3'"
+                  :placeholder="['开始时间', '结束时间']"
+                  format="YYYY-MM"
                   :value="value"
                   :mode="mode"
                   @panelChange="handlePanelChange"
@@ -43,31 +41,30 @@
                 />
               </a-form-item>
             </a-col>
-            <a-form-item>
-              <span class="table-page-search-submitButtons">
-                <a-col v-bind="formColResponsiveCfg">
-                  <a-button
-                    type="primary"
-                    @click="searchQuery"
-                    icon="search"
-                    :disabled="queryParam.type===''"
-                  >查询</a-button>
-                  <a-button
-                    type="primary"
-                    @click="searchReset"
-                    icon="reload"
-                    :disabled="queryParam.type===''"
-                  >重置</a-button>
-                </a-col>
-              </span>
-            </a-form-item>
+            <a-col>
+              <a-form-item>
+                <span class="table-page-search-submitButtons">
+                  <a-col v-bind="formColResponsiveCfg">
+                    <a-button
+                      type="primary"
+                      @click="searchQuery"
+                      icon="search"
+                      :disabled="queryParam.type===''"
+                    >查询</a-button>
+                    <a-button
+                      type="primary"
+                      @click="searchReset"
+                      icon="reload"
+                      :disabled="queryParam.type===''"
+                    >重置</a-button>
+                  </a-col>
+                </span>
+              </a-form-item>
+            </a-col>
           </a-row>
         </a-form>
       </div>
       <order-report-chart v-model="dataSource" v-if="dataSource.length!==0"></order-report-chart>
-    </a-card>
-    <a-card :bordered="false">
-      <!-- table区域-begin -->
       <div>
         <a-alert type="info" class="table-alert">
           <span slot="message">
@@ -139,6 +136,10 @@
         </a-table>
       </div>
     </a-card>
+    <!-- <a-card :bordered="false"> -->
+    <!-- table区域-begin -->
+
+    <!-- </a-card> -->
   </div>
 </template>
 
@@ -166,7 +167,8 @@ import {
   Table,
   Popconfirm,
   Tag,
-  DatePicker
+  DatePicker,
+  TimePicker
 } from 'ant-design-vue'
 import moment from 'moment'
 export default {
@@ -194,11 +196,14 @@ export default {
     ATag: Tag,
     OrderReportChart,
     JDictSelectTag,
+    ADatePicker: DatePicker,
+    ATimePicker: TimePicker,
     ARangePicker: DatePicker.RangePicker
   },
   data() {
     return {
       value: [],
+      mode1: ['time', 'time'],
       mode: ['month', 'month'],
       formatTime: [],
       queryParam: {
@@ -263,12 +268,18 @@ export default {
           title: '订单金额',
           align: 'center',
           dataIndex: 'amount'
+        },
+        {
+          title: '订单平均金额',
+          align: 'center',
+          dataIndex: 'avgAmount'
         }
       ],
       url: {
         list: '/order/reports'
       },
-      testingMode: false
+      testingMode: false,
+      disabledDate1: this.disabledDate
     }
   },
   methods: {
