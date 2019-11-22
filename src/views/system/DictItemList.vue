@@ -191,7 +191,7 @@ export default {
       },
       url: {
         list: '/system/dicts/{id}/items',
-        deleteBatch: '/system/dicts/{ids}'
+        deleteBatch: '/system/dict-items/{ids}'
       },
       isorter: {
         sortColumn: 'itemSort',

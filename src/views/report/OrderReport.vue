@@ -7,6 +7,15 @@
         <a-form layout="inline">
           <a-row :gutter="16">
             <a-col v-bind="formColResponsiveCfg">
+              <a-form-item label="订单状态">
+                <j-dict-select-tag
+                  v-model="queryParam.orderStatus"
+                  placeholder="请选择订单状态"
+                  dictCode="OrderStatus"
+                />
+              </a-form-item>
+            </a-col>
+            <a-col v-bind="formColResponsiveCfg">
               <a-form-item label="时间类型">
                 <j-dict-select-tag
                   v-model="queryParam.type"
