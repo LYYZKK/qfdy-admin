@@ -25,9 +25,14 @@
               </a-form-item>
             </a-col>
             <a-col v-bind="formColResponsiveCfg">
-              <a-form-item label="时间">
+              <a-form-item label="时间" v-if="queryParam.type!==''">
+                <a-date-picker
+                  v-if="queryParam.type==='1'"
+                  :disabledDate="disabledDate"
+                  @change="timeChnage"
+                />
                 <a-range-picker
-                  v-if="queryParam.type==='1'||queryParam.type==='2'"
+                  v-if="queryParam.type==='2'"
                   :placeholder="['开始时间', '结束时间']"
                   :disabledDate="disabledDate"
                   :showTime="{
@@ -45,8 +50,10 @@
                   format="YYYY-MM"
                   :value="value"
                   :mode="mode"
+                  :disabledDate="disabledDate"
                   @panelChange="handlePanelChange"
                   @change="handleChange"
+                  @calendarChange="calendarChange"
                 />
               </a-form-item>
             </a-col>
@@ -220,7 +227,8 @@ export default {
         start: moment(new Date(new Date(new Date().toLocaleDateString()))).format('YYYY-MM-DD HH:mm:ss'),
         end: moment(new Date(new Date(new Date().toLocaleDateString()).getTime() + 24 * 60 * 60 * 1000 - 1)).format(
           'YYYY-MM-DD HH:mm:ss'
-        )
+        ),
+        orderStatus: ''
       },
       queryType: {
         name: 'like',
@@ -287,19 +295,33 @@ export default {
       url: {
         list: '/order/reports'
       },
-      testingMode: false,
-      disabledDate1: this.disabledDate
+      testingMode: false
     }
   },
   methods: {
     moment,
+    // 重置
+    searchReset() {
+      this.queryParam = {
+        type: '1',
+        start: moment(new Date(new Date(new Date().toLocaleDateString()))).format('YYYY-MM-DD HH:mm:ss'),
+        end: moment(new Date(new Date(new Date().toLocaleDateString()).getTime() + 24 * 60 * 60 * 1000 - 1)).format(
+          'YYYY-MM-DD HH:mm:ss'
+        ),
+        orderStatus: ''
+      }
+    },
     onetomany() {
       this.$refs.oneToNTabsModal.add()
       this.$refs.oneToNTabsModal.operateType = 'add'
       this.$refs.oneToNTabsModal.title = '新增'
     },
     disabledDate(current) {
-      return current && current > moment().endOf('day')
+      if (this.queryParam.type === '3') {
+        return current && current > moment().endOf('month')
+      } else {
+        return current && current > moment().endOf('day')
+      }
     },
 
     disabledDateTime() {
@@ -309,18 +331,25 @@ export default {
         disabledSeconds: () => [55, 56]
       }
     },
+
+    timeChnage(val) {
+      if (this.queryParam.type === '1') {
+        this.queryParam.start = moment(val).format('YYYY-MM-DD 00:00:00')
+        this.queryParam.end = moment(val).format('YYYY-MM-DD 23:59:59')
+      } else {
+        this.queryParam.start = moment(val[0]).format('YYYY-MM-DD HH:00:00')
+        this.queryParam.end = moment(val[1]).format('YYYY-MM-DD HH:59:59')
+      }
+    },
     handleChange(value) {
       this.value = value
     },
-    timeChnage(val) {
-      this.queryParam.start = moment(val[0]).format('YYYY-MM-DD HH:mm:ss')
-      this.queryParam.end = moment(val[1]).format('YYYY-MM-DD HH:mm:ss')
-    },
-    handlePanelChange(value, mode) {
+    handlePanelChange(value) {
+      console.log('改变', value)
       this.value = value
+      this.mode = [this.mode[0] === 'date' ? 'month' : this.mode[0], this.mode[1] === 'date' ? 'month' : this.mode[1]]
       this.queryParam.start = moment(value[0]).format('YYYY-MM-01 00:00:00')
-      this.queryParam.end = moment(value[1]).format('YYYY-MM-30 23:59:59')
-      this.mode = [mode[0] === 'date' ? 'month' : mode[0], mode[1] === 'date' ? 'month' : mode[1]]
+      this.queryParam.end = moment(value[1]).format('YYYY-MM-31 23:59:59')
     }
   }
 }
