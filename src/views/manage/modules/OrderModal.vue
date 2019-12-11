@@ -73,6 +73,36 @@
             </a-form-item>
           </a-col>
           <a-col class="gutter-row" v-bind="formColResponsiveCfg">
+            <a-form-item v-bind="formItemResponsiveCfg" label="物流公司" hasFeedback>
+              <a-input
+                v-if="['add', 'edit'].includes(operateType)"
+                placeholder="请输入物流公司名称"
+                v-decorator="['company', {}]"
+              />
+              <template v-else>{{ model.company }}</template>
+            </a-form-item>
+          </a-col>
+          <a-col class="gutter-row" v-bind="formColResponsiveCfg">
+            <a-form-item v-bind="formItemResponsiveCfg" label="物流单号" hasFeedback>
+              <a-input
+                v-if="['add', 'edit'].includes(operateType)"
+                placeholder="请输入物流单号"
+                v-decorator="['logisticsNumber', {}]"
+              />
+              <template v-else>{{ model.logisticsNumber }}</template>
+            </a-form-item>
+          </a-col>
+          <a-col class="gutter-row" v-bind="formColResponsiveCfg">
+            <a-form-item v-bind="formItemResponsiveCfg" label="发货时间" hasFeedback>
+              <a-input
+                v-if="['add', 'edit'].includes(operateType)"
+                placeholder="请选择发货时间"
+                v-decorator="['deliveryTime', {}]"
+              />
+              <template v-else>{{ model.deliveryTime }}</template>
+            </a-form-item>
+          </a-col>
+          <a-col class="gutter-row" v-bind="formColResponsiveCfg">
             <a-form-item v-bind="formItemResponsiveCfg" label="备注" hasFeedback>
               <a-input
                 v-if="['add', 'edit'].includes(operateType)"

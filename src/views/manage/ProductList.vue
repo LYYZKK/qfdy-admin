@@ -229,12 +229,6 @@ export default {
       url: {
         list: '/products',
         deleteBatch: '/products/{ids}'
-      },
-      api: {
-        list: {
-          url: '/products',
-          method: 'get'
-        }
       }
     }
   }

@@ -19,23 +19,6 @@
       </a-form>
     </div>
 
-    <!-- 操作按钮区域 -->
-    <!-- <div class="table-operator">
-      <a-button @click="handleAdd" type="primary" icon="plus">新增</a-button>
-      <a-dropdown v-if="selectedRowKeys.length > 0">
-        <a-menu slot="overlay">
-          <a-menu-item key="1" @click="batchDel">
-            <a-icon type="delete" />删除
-          </a-menu-item>
-        </a-menu>
-        <a-button>
-          批量操作
-          <a-icon type="down" />
-        </a-button>
-      </a-dropdown>
-    </div>-->
-
-    <!-- table区域-begin -->
     <div>
       <div class="ant-alert ant-alert-info table-alert">
         <i class="anticon anticon-info-circle ant-alert-icon"></i>已选择
@@ -86,6 +69,9 @@
         <span slot="action" slot-scope="text, record">
           <a @click="handleShow(record)">
             <a-icon type="eye" />查看
+          </a>
+          <a @click="handleEdit(record)">
+            <a-icon type="edit" />编辑
           </a>
         </span>
       </a-table>

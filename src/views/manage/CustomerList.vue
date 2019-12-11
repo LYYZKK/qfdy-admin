@@ -71,7 +71,6 @@
         :rowSelection="{selectedRowKeys: selectedRowKeys, onChange: onSelectChange}"
         @change="handleTableChange"
       >
-        <!-- <span slot slot-scope="text, record">{{ text }}</span> -->
         <span slot="action" slot-scope="text, record">
           <a @click="handleShow(record)">
             <a-icon type="eye" />查看
@@ -198,9 +197,16 @@ export default {
         },
 
         {
-          title: '地址',
+          title: '收货地址',
           align: 'center',
-          dataIndex: 'address'
+          dataIndex: 'address',
+          customRender: text => {
+            if (text !== '') {
+              let address = JSON.parse(text)
+              let addressText = address.province + address.city + address.county + address.addressDetail
+              return addressText
+            }
+          }
         },
         {
           title: '操作',
