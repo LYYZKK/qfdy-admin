@@ -33,7 +33,7 @@
             <a-form-item v-bind="formItemResponsiveCfg" label="地址" hasFeedback>
               <a-input
                 v-if="['add', 'edit'].includes(operateType)"
-                placeholder="请输入客户手机号"
+                placeholder="请输入地址"
                 v-decorator="['address', {}]"
               />
               <template v-else>{{ model.address }}</template>

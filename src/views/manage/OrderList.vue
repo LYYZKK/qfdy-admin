@@ -197,10 +197,25 @@ export default {
           title: '订单状态',
           align: 'center',
           dataIndex: 'orderStatus',
-          customRender: (t, r, index) => {
+          customRender: t => {
             return t === 0 ? '待支付' : t === 1 ? '已支付' : t === 1 ? '取消中' : t === 2 ? '已取消' : ''
           }
         },
+        // {
+        //   title: '物流公司',
+        //   align: 'center',
+        //   dataIndex: 'company'
+        // },
+        // {
+        //   title: '物流单号',
+        //   align: 'center',
+        //   dataIndex: 'logisticsNumber'
+        // },
+        // {
+        //   title: '发货时间',
+        //   align: 'center',
+        //   dataIndex: 'deliveryTime'
+        // },
         {
           title: '订单备注',
           align: 'center',

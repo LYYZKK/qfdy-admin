@@ -9,109 +9,166 @@
     <a-spin :spinning="confirmLoading">
       <a-form :form="form" :class="[['show'].includes(operateType) ? 'view-form' : null]">
         <a-row :gutter="16">
-          <a-col class="gutter-row" v-bind="formColResponsiveCfg">
-            <a-form-item v-bind="formItemResponsiveCfg" label="订单编号" hasFeedback>
-              <a-input
-                v-if="['add', 'edit'].includes(operateType)"
-                placeholder="请输入订单编号"
-                v-decorator="['orderNo', validatorRules.orderNo]"
-              />
-              <template v-else>{{ model.orderNo }}</template>
-            </a-form-item>
-          </a-col>
-          <a-col class="gutter-row" v-bind="formColResponsiveCfg">
-            <a-form-item v-bind="formItemResponsiveCfg" label="总金额" hasFeedback>
-              <a-input-number
-                v-if="['add', 'edit'].includes(operateType)"
-                placeholder="请输入总金额"
-                v-decorator="['totalAmount', validatorRules.totalAmount]"
-              />
-              <template v-else>{{ model.totalAmount }}</template>
-            </a-form-item>
-          </a-col>
+          <a-card title="基本信息">
+            <a-col class="gutter-row" v-bind="formColResponsiveCfg">
+              <a-form-item v-bind="formItemResponsiveCfg" label="订单编号" hasFeedback>
+                <a-input
+                  v-if="['add'].includes(operateType)"
+                  placeholder="请输入订单编号"
+                  v-decorator="['orderNo', validatorRules.orderNo]"
+                />
+                <template v-else>{{ model.orderNo }}</template>
+              </a-form-item>
+            </a-col>
+            <a-col class="gutter-row" v-bind="formColResponsiveCfg">
+              <a-form-item v-bind="formItemResponsiveCfg" label="总金额" hasFeedback>
+                <a-input-number
+                  v-if="['add'].includes(operateType)"
+                  placeholder="请输入总金额"
+                  v-decorator="['totalAmount', validatorRules.totalAmount]"
+                />
+                <template v-else>{{ model.totalAmount }}</template>
+              </a-form-item>
+            </a-col>
 
-          <a-col class="gutter-row" v-bind="formColResponsiveCfg">
-            <a-form-item v-bind="formItemResponsiveCfg" label="订单状态" hasFeedback>
-              <a-input
-                v-if="['add', 'edit'].includes(operateType)"
-                placeholder="请输入商品详情页RUL"
-                v-decorator="['orderStatus',{}]"
-              />
-              <template
-                v-else
-              >{{ model.orderStatus === 0 ? '待支付' : model.orderStatus === 1 ? '已支付' : model.orderStatus === 1 ? '取消中' : model.orderStatus === 2 ? '已取消' : '' }}</template>
-            </a-form-item>
-          </a-col>
-          <a-col class="gutter-row" v-bind="formColResponsiveCfg">
-            <a-form-item v-bind="formItemResponsiveCfg" label="下单时间" hasFeedback>
-              <a-input
-                v-if="['add', 'edit'].includes(operateType)"
-                placeholder="请输入下单时间"
-                v-decorator="['orderTime', {}]"
-              />
-              <template v-else>{{ model.orderTime }}</template>
-            </a-form-item>
-          </a-col>
-          <a-col class="gutter-row" v-bind="formColResponsiveCfg">
-            <a-form-item v-bind="formItemResponsiveCfg" label="支付时间" hasFeedback>
-              <a-input
-                v-if="['add', 'edit'].includes(operateType)"
-                placeholder="请输入支付时间"
-                v-decorator="['payTime', {}]"
-              />
-              <template v-else>{{ model.payTime }}</template>
-            </a-form-item>
-          </a-col>
-          <a-col class="gutter-row" v-bind="formColResponsiveCfg">
-            <a-form-item v-bind="formItemResponsiveCfg" label="取消时间" hasFeedback>
-              <a-input
-                v-if="['add', 'edit'].includes(operateType)"
-                placeholder="请输入订单取消时间"
-                v-decorator="['orderCancelTime', {}]"
-              />
-              <template v-else>{{ model.orderCancelTime }}</template>
-            </a-form-item>
-          </a-col>
-          <a-col class="gutter-row" v-bind="formColResponsiveCfg">
-            <a-form-item v-bind="formItemResponsiveCfg" label="物流公司" hasFeedback>
-              <a-input
-                v-if="['add', 'edit'].includes(operateType)"
-                placeholder="请输入物流公司名称"
-                v-decorator="['company', {}]"
-              />
-              <template v-else>{{ model.company }}</template>
-            </a-form-item>
-          </a-col>
-          <a-col class="gutter-row" v-bind="formColResponsiveCfg">
-            <a-form-item v-bind="formItemResponsiveCfg" label="物流单号" hasFeedback>
-              <a-input
-                v-if="['add', 'edit'].includes(operateType)"
-                placeholder="请输入物流单号"
-                v-decorator="['logisticsNumber', {}]"
-              />
-              <template v-else>{{ model.logisticsNumber }}</template>
-            </a-form-item>
-          </a-col>
-          <a-col class="gutter-row" v-bind="formColResponsiveCfg">
-            <a-form-item v-bind="formItemResponsiveCfg" label="发货时间" hasFeedback>
-              <a-input
-                v-if="['add', 'edit'].includes(operateType)"
-                placeholder="请选择发货时间"
-                v-decorator="['deliveryTime', {}]"
-              />
-              <template v-else>{{ model.deliveryTime }}</template>
-            </a-form-item>
-          </a-col>
-          <a-col class="gutter-row" v-bind="formColResponsiveCfg">
-            <a-form-item v-bind="formItemResponsiveCfg" label="备注" hasFeedback>
-              <a-input
-                v-if="['add', 'edit'].includes(operateType)"
-                placeholder="请输入订单备注"
-                v-decorator="['mark', {}]"
-              />
-              <template v-else>{{ model.mark }}</template>
-            </a-form-item>
-          </a-col>
+            <a-col class="gutter-row" v-bind="formColResponsiveCfg">
+              <a-form-item v-bind="formItemResponsiveCfg" label="订单状态" hasFeedback>
+                <a-input
+                  v-if="['add'].includes(operateType)"
+                  placeholder="订单状态"
+                  v-decorator="['orderStatus',{}]"
+                />
+                <template
+                  v-else
+                >{{ model.orderStatus === 0 ? '待支付' : model.orderStatus === 1 ? '已支付' : model.orderStatus === 1 ? '取消中' : model.orderStatus === 2 ? '已取消' : '' }}</template>
+              </a-form-item>
+            </a-col>
+            <a-col class="gutter-row" v-bind="formColResponsiveCfg">
+              <a-form-item v-bind="formItemResponsiveCfg" label="下单时间" hasFeedback>
+                <a-input
+                  v-if="['add'].includes(operateType)"
+                  placeholder="请输入下单时间"
+                  v-decorator="['orderTime', {}]"
+                />
+                <template v-else>{{ model.orderTime }}</template>
+              </a-form-item>
+            </a-col>
+            <a-col class="gutter-row" v-bind="formColResponsiveCfg">
+              <a-form-item v-bind="formItemResponsiveCfg" label="支付时间" hasFeedback>
+                <a-input
+                  v-if="['add'].includes(operateType)"
+                  placeholder="请输入支付时间"
+                  v-decorator="['payTime', {}]"
+                />
+                <template v-else>{{ model.payTime }}</template>
+              </a-form-item>
+            </a-col>
+            <a-col class="gutter-row" v-bind="formColResponsiveCfg">
+              <a-form-item v-bind="formItemResponsiveCfg" label="取消时间" hasFeedback>
+                <a-input
+                  v-if="['add'].includes(operateType)"
+                  placeholder="请输入订单取消时间"
+                  v-decorator="['orderCancelTime', {}]"
+                />
+                <template v-else>{{ model.orderCancelTime }}</template>
+              </a-form-item>
+            </a-col>
+
+            <a-col class="gutter-row" v-bind="formColResponsiveCfg">
+              <a-form-item v-bind="formItemResponsiveCfg" label="备注" hasFeedback>
+                <a-input
+                  v-if="['add'].includes(operateType)"
+                  placeholder="请输入订单备注"
+                  v-decorator="['mark', {}]"
+                />
+                <template v-else>{{ model.mark }}</template>
+              </a-form-item>
+            </a-col>
+          </a-card>
+          <!-- <a-card title="物流信息" class="m-t-10">
+            <a-col class="gutter-row" v-bind="formColResponsiveCfg">
+              <a-form-item v-bind="formItemResponsiveCfg" label="物流公司" hasFeedback>
+                <a-input
+                  v-if="['add', 'edit'].includes(operateType)"
+                  placeholder="请输入物流公司名称"
+                  v-decorator="['company', {}]"
+                />
+                <template v-else>{{ model.company }}</template>
+              </a-form-item>
+            </a-col>
+            <a-col class="gutter-row" v-bind="formColResponsiveCfg">
+              <a-form-item v-bind="formItemResponsiveCfg" label="物流单号" hasFeedback>
+                <a-input
+                  v-if="['add', 'edit'].includes(operateType)"
+                  placeholder="请输入物流单号"
+                  v-decorator="['logisticsNumber', {}]"
+                />
+                <template v-else>{{ model.logisticsNumber }}</template>
+              </a-form-item>
+            </a-col>
+            <a-col class="gutter-row" v-bind="formColResponsiveCfg">
+              <a-form-item v-bind="formItemResponsiveCfg" label="发货时间" hasFeedback>
+                <a-input
+                  v-if="['add', 'edit'].includes(operateType)"
+                  placeholder="请选择发货时间"
+                  v-decorator="['deliveryTime', {}]"
+                />
+                <template v-else>{{ model.deliveryTime }}</template>
+              </a-form-item>
+            </a-col>
+          </a-card>-->
+          <!-- <a-card title="发票信息" class="m-t-10">
+            <a-col class="gutter-row" v-bind="formColResponsiveCfg">
+              <a-form-item v-bind="formItemResponsiveCfg" label="发票抬头" hasFeedback>
+                <a-input
+                  v-if="['add', 'edit'].includes(operateType)"
+                  placeholder="请选择发货时间"
+                  v-decorator="['deliveryTime', {}]"
+                />
+                <template v-else>{{ model.deliveryTime }}</template>
+              </a-form-item>
+            </a-col>
+            <a-col class="gutter-row" v-bind="formColResponsiveCfg">
+              <a-form-item v-bind="formItemResponsiveCfg" label="单位名称" hasFeedback>
+                <a-input
+                  v-if="['add', 'edit'].includes(operateType)"
+                  placeholder="请选择发货时间"
+                  v-decorator="['deliveryTime', {}]"
+                />
+                <template v-else>{{ model.deliveryTime }}</template>
+              </a-form-item>
+            </a-col>
+            <a-col class="gutter-row" v-bind="formColResponsiveCfg">
+              <a-form-item v-bind="formItemResponsiveCfg" label="纳税人识别号" hasFeedback>
+                <a-input
+                  v-if="['add', 'edit'].includes(operateType)"
+                  placeholder="请选择发货时间"
+                  v-decorator="['deliveryTime', {}]"
+                />
+                <template v-else>{{ model.deliveryTime }}</template>
+              </a-form-item>
+            </a-col>
+            <a-col class="gutter-row" v-bind="formColResponsiveCfg">
+              <a-form-item v-bind="formItemResponsiveCfg" label="收票人手机号" hasFeedback>
+                <a-input
+                  v-if="['add', 'edit'].includes(operateType)"
+                  placeholder="请选择发货时间"
+                  v-decorator="['deliveryTime', {}]"
+                />
+                <template v-else>{{ model.deliveryTime }}</template>
+              </a-form-item>
+            </a-col>
+            <a-col class="gutter-row" v-bind="formColResponsiveCfg">
+              <a-form-item v-bind="formItemResponsiveCfg" label="收票人邮箱" hasFeedback>
+                <a-input
+                  v-if="['add', 'edit'].includes(operateType)"
+                  placeholder="请选择发货时间"
+                  v-decorator="['deliveryTime', {}]"
+                />
+                <template v-else>{{ model.deliveryTime }}</template>
+              </a-form-item>
+            </a-col>
+          </a-card>-->
         </a-row>
       </a-form>
     </a-spin>
@@ -138,7 +195,7 @@
 <script>
 import ModalMixin from '@/mixins/ModalMixin'
 
-import { Modal, Spin, Form, Row, Col, Input, InputNumber, Button, Popconfirm } from 'ant-design-vue'
+import { Modal, Spin, Form, Row, Col, Input, InputNumber, Button, Popconfirm, Card } from 'ant-design-vue'
 
 import JDictSelectTag from '@/components/dict/JDictSelectTag.vue'
 import JDictViewTag from '@/components/dict/JDictViewTag.vue'
@@ -160,6 +217,7 @@ export default {
     APopconfirm: Popconfirm,
     JDictSelectTag,
     JDictViewTag,
+    ACard: Card,
     JDate
   },
   data() {
@@ -207,7 +265,18 @@ export default {
           method: 'get'
         }
       },
-      formFields: ['name', 'price', 'totalCount', 'img', 'url', 'description']
+      formFields: [
+        'orderNo',
+        'totalAmount',
+        'orderStatus',
+        'orderTime',
+        'payTime',
+        'orderCancelTime',
+        'mark'
+        // 'company',
+        // 'logisticsNumber',
+        // 'deliveryTime'
+      ]
     }
   },
   methods: {
