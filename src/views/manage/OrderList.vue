@@ -5,6 +5,24 @@
       <a-form layout="inline">
         <a-row :gutter="16">
           <a-col v-bind="formColResponsiveCfg">
+            <a-form-item label="订单状态">
+              <j-dict-select-tag
+                v-model="queryParam.orderStatus"
+                placeholder="请选择订单状态"
+                dictCode="OrderStatus"
+              />
+            </a-form-item>
+          </a-col>
+          <a-col v-bind="formColResponsiveCfg">
+            <a-form-item label="发货状态">
+              <j-dict-select-tag
+                v-model="queryParam.simpleStatus"
+                placeholder="请选择订单状态"
+                dictCode="simpleStatus"
+              />
+            </a-form-item>
+          </a-col>
+          <a-col v-bind="formColResponsiveCfg">
             <a-form-item label="订单编号">
               <a-input placeholder="请输入订单编号查询" v-model="queryParam.orderNo"></a-input>
             </a-form-item>
@@ -70,14 +88,15 @@
           <a @click="handleShow(record)">
             <a-icon type="eye" />查看
           </a>
-          <a @click="handleEdit(record)">
-            <a-icon type="edit" />编辑
+          <a @click="handleEdit(record)" v-if="record.orderStatus === 2&&record.simpleStatus===0">
+            <a-icon type="edit" />试吃米物流
           </a>
         </span>
       </a-table>
     </div>
     <!-- table区域-end -->
     <order-modal ref="modalForm" @ok="modalFormOk"></order-modal>
+    <!-- <order-logistics-modal ref="modalForm" @ok="modalFormOk"></order-logistics-modal> -->
   </a-card>
 </template>
 
@@ -86,6 +105,7 @@ import DictMixin from '@/mixins/DictMixin'
 import ListMixin from '@/mixins/ListMixin'
 import KeepAliveMixin from '@/mixins/KeepAliveMixin'
 import OrderModal from './modules/OrderModal'
+import orderLogisticsModal from './modules/orderLogisticsModal'
 import {
   Alert,
   Card,
@@ -102,7 +122,8 @@ import {
   Popover,
   Checkbox,
   Table,
-  Popconfirm
+  Popconfirm,
+  Tag
 } from 'ant-design-vue'
 
 import JDictSelectTag from '@/components/dict/JDictSelectTag.vue'
@@ -112,6 +133,7 @@ export default {
   mixins: [KeepAliveMixin, ListMixin, DictMixin],
   components: {
     OrderModal,
+    orderLogisticsModal,
     AAlert: Alert,
     ACard: Card,
     AForm: Form,
@@ -131,7 +153,8 @@ export default {
     ACheckboxGroup: Checkbox.Group,
     ATable: Table,
     APopconfirm: Popconfirm,
-    JDictSelectTag
+    JDictSelectTag,
+    ATag: Tag
   },
   data() {
     return {
@@ -198,24 +221,27 @@ export default {
           align: 'center',
           dataIndex: 'orderStatus',
           customRender: t => {
-            return t === 0 ? '待支付' : t === 1 ? '已支付' : t === 1 ? '取消中' : t === 2 ? '已取消' : ''
+            if (t === 0) {
+              return <a-tag color="magenta">待支付</a-tag>
+            } else if (t === 2) {
+              return <a-tag color="blue">已支付</a-tag>
+            } else if (t === 3) {
+              return <a-tag color="orange">已取消</a-tag>
+            }
           }
         },
-        // {
-        //   title: '物流公司',
-        //   align: 'center',
-        //   dataIndex: 'company'
-        // },
-        // {
-        //   title: '物流单号',
-        //   align: 'center',
-        //   dataIndex: 'logisticsNumber'
-        // },
-        // {
-        //   title: '发货时间',
-        //   align: 'center',
-        //   dataIndex: 'deliveryTime'
-        // },
+        {
+          title: '是否发货',
+          align: 'center',
+          dataIndex: 'simpleStatus',
+          customRender: t => {
+            if (t === 0) {
+              return <a-tag color="#f50">未发货</a-tag>
+            } else if (t === 1) {
+              return <a-tag color="#108ee9">已发货</a-tag>
+            }
+          }
+        },
         {
           title: '订单备注',
           align: 'center',
