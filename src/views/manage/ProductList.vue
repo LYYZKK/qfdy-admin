@@ -131,7 +131,6 @@ import {
 } from 'ant-design-vue'
 
 import JDictSelectTag from '@/components/dict/JDictSelectTag.vue'
-import { request } from '@/api'
 
 export default {
   name: 'UserList',
@@ -208,11 +207,6 @@ export default {
           title: '商品名称',
           align: 'center',
           dataIndex: 'name'
-        },
-        {
-          title: '单价',
-          align: 'center',
-          dataIndex: 'price'
         },
         {
           title: '库存',

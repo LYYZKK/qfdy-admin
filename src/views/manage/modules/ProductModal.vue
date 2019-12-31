@@ -73,6 +73,29 @@
           </a-col>
         </a-row>
       </a-form>
+      <a-table
+        ref="table"
+        size="middle"
+        bordered
+        rowKey="id"
+        :columns="columns"
+        :dataSource="dataSource[0].specifications"
+        :pagination="ipagination"
+        :loading="loading"
+        :rowSelection="{selectedRowKeys: selectedRowKeys, onChange: onSelectChange}"
+        @change="handleTableChange"
+      >
+        <span slot="action" slot-scope="text, record">
+          <a @click="handleShow(record)">
+            <a-icon type="eye" />查看
+          </a>
+
+          <a-divider type="vertical" />
+          <a @click="handleEdit(record)">
+            <a-icon type="edit" />编辑
+          </a>
+        </span>
+      </a-table>
     </a-spin>
     <template slot="footer">
       <a-popconfirm
@@ -91,21 +114,26 @@
         type="primary"
       >确定</a-button>
     </template>
+    <!-- 查看或者编辑套餐 -->
+    <meal ref="modalForm" @ok="modalFormOk"></meal>
   </a-modal>
 </template>
 
 <script>
 import ModalMixin from '@/mixins/ModalMixin'
-
-import { Modal, Spin, Form, Row, Col, Input, InputNumber, Button, Popconfirm } from 'ant-design-vue'
+import DictMixin from '@/mixins/DictMixin'
+import ListMixin from '@/mixins/ListMixin'
+import KeepAliveMixin from '@/mixins/KeepAliveMixin'
+import { Modal, Spin, Form, Row, Col, Input, InputNumber, Button, Popconfirm, Table } from 'ant-design-vue'
 
 import JDictSelectTag from '@/components/dict/JDictSelectTag.vue'
 import JDictViewTag from '@/components/dict/JDictViewTag.vue'
 import JDate from '@/components/jeecg/JDate.vue'
+import Meal from './Meal.vue'
 
 export default {
   name: 'ProductModal',
-  mixins: [ModalMixin],
+  mixins: [KeepAliveMixin, ListMixin, DictMixin, ModalMixin],
   components: {
     AModal: Modal,
     ASpin: Spin,
@@ -117,9 +145,11 @@ export default {
     AInputNumber: InputNumber,
     AButton: Button,
     APopconfirm: Popconfirm,
+    ATable: Table,
     JDictSelectTag,
     JDictViewTag,
-    JDate
+    JDate,
+    Meal
   },
   data() {
     return {
@@ -165,6 +195,53 @@ export default {
           url: '/products/{id}',
           method: 'get'
         }
+      },
+      defColumns: [
+        {
+          title: '#',
+          dataIndex: '',
+          key: 'rowIndex',
+          width: 60,
+          align: 'center',
+          customRender: (text, record, index) => {
+            return parseInt(index) + 1
+          }
+        },
+        {
+          title: '套餐名',
+          align: 'center',
+          dataIndex: 'name'
+          // customRender: (text, record, index) => {
+          //   console.log(record)
+          //   return record.specifications[index].name
+          // }
+        },
+        {
+          title: '市场价',
+          align: 'center',
+          dataIndex: 'originalPrice'
+          // customRender: (text, record, index) => {
+          //   return record.specifications[index].originalPrice
+          // }
+        },
+        {
+          title: '现价',
+          align: 'center',
+          dataIndex: 'price'
+          // customRender: (text, record, index) => {
+          //   return record.specifications[index].price
+          // }
+        },
+        {
+          title: '操作',
+          dataIndex: 'action',
+          align: 'center',
+          scopedSlots: { customRender: 'action' }
+        }
+      ],
+      url: {
+        list: '/products',
+        deleteBatch: '/products/{ids}'
       },
       formFields: ['name', 'price', 'totalCount', 'img', 'url', 'description']
     }

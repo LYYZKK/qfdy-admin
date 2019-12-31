@@ -199,14 +199,7 @@ export default {
         {
           title: '收货地址',
           align: 'center',
-          dataIndex: 'address',
-          customRender: text => {
-            if (text !== '') {
-              let address = JSON.parse(text)
-              let addressText = address.province + address.city + address.county + address.addressDetail
-              return addressText
-            }
-          }
+          dataIndex: 'address'
         },
         {
           title: '操作',
@@ -220,6 +213,9 @@ export default {
         deleteBatch: '/customers/{ids}'
       }
     }
+  },
+  mounted() {
+    console.log(process.env.mode)
   }
 }
 </script>
