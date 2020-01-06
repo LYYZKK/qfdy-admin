@@ -133,7 +133,7 @@
             </a-col>
           </a-card>
 
-          <a-card title="物流信息" :bordered="false" v-if="model.orderStatus === 2">
+          <a-card title="物流信息" :bordered="false" v-if="model.simpleStatus === 1">
             <a-col class="gutter-row" v-bind="formColResponsiveCfg">
               <a-form-item v-bind="formItemResponsiveCfg" label="物流公司" hasFeedback>
                 <a-input

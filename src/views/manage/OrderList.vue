@@ -6,11 +6,7 @@
         <a-row :gutter="16">
           <a-col v-bind="formColResponsiveCfg">
             <a-form-item label="订单状态">
-              <j-dict-select-tag
-                v-model="queryParam.orderStatus"
-                placeholder="请选择订单状态"
-                dictCode="OrderStatus"
-              />
+              <j-dict-select-tag v-model="queryParam.orderStatus" placeholder="请选择订单状态" dictCode="OrderStatus" />
             </a-form-item>
           </a-col>
           <a-col v-bind="formColResponsiveCfg">
@@ -30,6 +26,7 @@
           <span class="table-page-search-submitButtons">
             <a-col v-bind="formColResponsiveCfg">
               <a-button type="primary" @click="searchQuery(queryParam)" icon="search">查询</a-button>
+              <a-button type="primary" icon="download" @click="exportExcel">导出excel</a-button>
               <a-button type="primary" @click="searchReset" icon="reload">重置</a-button>
             </a-col>
           </span>
@@ -40,7 +37,8 @@
     <div>
       <div class="ant-alert ant-alert-info table-alert">
         <i class="anticon anticon-info-circle ant-alert-icon"></i>已选择
-        <a class="numbers">{{ selectedRowKeys.length }}</a>&nbsp;项
+        <a class="numbers">{{ selectedRowKeys.length }}</a
+        >&nbsp;项
         <a class="clear" @click="onClearSelected">清空</a>
 
         <span class="tab-alert-action">
@@ -48,14 +46,10 @@
           <a-divider type="vertical" />
           <a-popover title="自定义列" trigger="click" placement="leftBottom" class="w-400">
             <template slot="content">
-              <a-checkbox-group
-                @change="onColSettingsChange"
-                v-model="settingColumns"
-                :defaultValue="settingColumns"
-              >
+              <a-checkbox-group @change="onColSettingsChange" v-model="settingColumns" :defaultValue="settingColumns">
                 <a-row>
                   <template v-for="(item, idx) in defColumns">
-                    <template v-if="item.key!='rowIndex'&& item.dataIndex!='action'">
+                    <template v-if="item.key != 'rowIndex' && item.dataIndex != 'action'">
                       <a-col :span="12" :key="idx">
                         <a-checkbox :value="item.dataIndex">{{ item.title }}</a-checkbox>
                       </a-col>
@@ -64,9 +58,7 @@
                 </a-row>
               </a-checkbox-group>
             </template>
-            <a>
-              <a-icon type="setting" />&nbsp;自定义列
-            </a>
+            <a> <a-icon type="setting" />&nbsp;自定义列 </a>
           </a-popover>
         </span>
       </div>
@@ -80,16 +72,14 @@
         :dataSource="dataSource"
         :pagination="ipagination"
         :loading="loading"
-        :rowSelection="{selectedRowKeys: selectedRowKeys, onChange: onSelectChange}"
+        :rowSelection="{ selectedRowKeys: selectedRowKeys, onChange: onSelectChange }"
         @change="handleTableChange"
       >
         <!-- <span slot slot-scope="text, record">{{ text }}</span> -->
         <span slot="action" slot-scope="text, record">
-          <a @click="handleShow(record)">
-            <a-icon type="eye" />查看
-          </a>
-          <a @click="handleEdit(record)" v-if="record.orderStatus === 2&&record.simpleStatus===0">
-            <a-icon type="edit" />试吃米物流
+          <a @click="handleShow(record)"> <a-icon type="eye" />查看 </a>
+          <a @click="handleEdit(record)" v-if="record.orderStatus === 2 && record.simpleStatus === 0">
+            <a-icon type="edit" />尝鲜米物流
           </a>
         </span>
       </a-table>
@@ -125,7 +115,7 @@ import {
   Popconfirm,
   Tag
 } from 'ant-design-vue'
-
+import { request } from '@/api'
 import JDictSelectTag from '@/components/dict/JDictSelectTag.vue'
 
 export default {
@@ -227,6 +217,10 @@ export default {
               return <a-tag color="blue">已支付</a-tag>
             } else if (t === 3) {
               return <a-tag color="orange">已取消</a-tag>
+            } else if (t === 5) {
+              return <a-tag color="orange">已退款</a-tag>
+            } else if (t === 6) {
+              return <a-tag color="red">已关闭</a-tag>
             }
           }
         },
@@ -257,10 +251,32 @@ export default {
       url: {
         list: '/orders',
         deleteBatch: '/orders/{ids}'
+      },
+      api: {
+        export: {
+          url: '/orders/data/export',
+          method: 'post'
+        }
       }
+    }
+  },
+  methods: {
+    exportExcel() {
+      console.log(this.queryParam)
+      let params = {
+        orderStatus: this.queryParam.orderStatus,
+        simpleStatus: this.queryParam.simpleStatus,
+        orderNo: this.queryParam.orderNo,
+        ids: this.selectedRowKeys,
+        pageNo: 1,
+        pageSize: 10
+      }
+      request({ ...this.api.export, params }).then(res => {
+        console.log(res)
+        // const {export_json_to_excel} = require('../../assets/js/Export2Excel');
+      })
     }
   }
 }
 </script>
-<style scoped>
-</style>
+<style scoped></style>

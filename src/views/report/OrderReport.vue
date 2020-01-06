@@ -152,10 +152,6 @@
         </a-table>
       </div>
     </a-card>
-    <!-- <a-card :bordered="false"> -->
-    <!-- table区域-begin -->
-
-    <!-- </a-card> -->
   </div>
 </template>
 
