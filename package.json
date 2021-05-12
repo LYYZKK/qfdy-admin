@@ -16,7 +16,7 @@
     "ant-design-vue": "^1.4.3",
     "area-data": "^5.0.6",
     "axios": "^0.19.0",
-    "codemirror": "^5.48.2",
+    "codemirror": "^5.58.2",
     "compression-webpack-plugin": "^3.0.0",
     "core-js": "^2.6.5",
     "cross-env": "^5.2.0",
